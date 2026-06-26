@@ -1,12 +1,14 @@
 import { db } from "$lib/server/db";
+import { fail } from "@sveltejs/kit";
 import type { Actions } from "./$types";
 import {
-  type NewRegistrant,
+  type NewRegistration,
   type Gender,
   type YearLevel,
   type College,
-  registrants as registrantsTable,
+  registrations as registrationsTable,
 } from "$lib/server/db/schema";
+import { createSuffix } from "$lib/utils";
 
 export const actions: Actions = {
   submit: async (event) => {
@@ -24,13 +26,9 @@ export const actions: Actions = {
     const contactNumber = formData.get("contact_number")?.toString() ?? "";
     const address = formData.get("address")?.toString() ?? "";
 
-    const fInitial = firstName.charAt(0);
-    const mInitial = middleName ? middleName.charAt(0) : "";
-    const lInitial = lastName.charAt(0);
+    const suffix = createSuffix(firstName, lastName, middleName);
 
-    const suffix = `${fInitial}${mInitial}${lInitial}`.toUpperCase();
-
-    const newRegistrant: NewRegistrant = {
+    const newRegistration: NewRegistration = {
       firstName: firstName,
       middleName: middleName,
       lastName: lastName,
@@ -46,8 +44,28 @@ export const actions: Actions = {
       address: address,
     };
 
-    await db.insert(registrantsTable).values(newRegistrant);
+    try {
+      const insertedRows = await db.insert(registrationsTable).values(newRegistration).returning();
 
-    await db.select().from(registrantsTable);
+      console.log("=== DATABASE INSERTION ATTEMPT ===");
+      console.log("Inserted rows returned from Postgres:", insertedRows);
+
+      if (!insertedRows || insertedRows.length === 0) {
+        return fail(500, {
+          success: false,
+          message: "The database accepted the query but did not save the record.",
+        });
+      }
+
+      return {
+        success: true,
+        message: "You have successfully registered.",
+      };
+    } catch (error) {
+      console.error("CRITICAL DRIZZLE ERROR:", error);
+      return fail(500, {
+        message: "Registration failed. Please try again.",
+      });
+    }
   },
 };

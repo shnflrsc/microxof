@@ -10,9 +10,10 @@ import {
   varchar,
   date,
   pgEnum,
+  timestamp,
 } from "drizzle-orm/pg-core";
 
-export const genderEnum = pgEnum("gender", ["female", "male"]);
+export const genderEnum = pgEnum("gender", ["female", "male", "non_binary", "prefer_not_to_say"]);
 export const yearLevelEnum = pgEnum("year_level", [
   "freshman",
   "sophomore",
@@ -37,7 +38,7 @@ export const collegeEnum = pgEnum("college", [
   "GS",
 ]);
 
-export const registrants = pgTable("registrants", {
+export const registrations = pgTable("registrations", {
   id: serial("id").primaryKey(),
   firstName: varchar("first_name", { length: 255 }).notNull(),
   middleName: varchar("middle_name", { length: 255 }),
@@ -52,11 +53,12 @@ export const registrants = pgTable("registrants", {
   program: varchar("program", { length: 255 }).notNull(),
   contactNumber: varchar("contact_number", { length: 11 }).notNull(),
   address: text("address").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export type Gender = InferEnum<typeof genderEnum>;
 export type YearLevel = InferEnum<typeof yearLevelEnum>;
 export type College = InferEnum<typeof collegeEnum>;
 
-export type Registrant = InferSelectModel<typeof registrants>;
-export type NewRegistrant = InferInsertModel<typeof registrants>;
+export type Registration = InferSelectModel<typeof registrations>;
+export type NewRegistration = InferInsertModel<typeof registrations>;

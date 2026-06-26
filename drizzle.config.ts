@@ -1,11 +1,15 @@
 import { defineConfig } from 'drizzle-kit';
 
-if (!process.env.DATABASE_URL) throw new Error('DATABASE_URL is not set');
+const dbName = process.env.POSTGRES_DB || 'local';
+const dbUser = process.env.POSTGRES_USER || 'root';
+const dbPassword = process.env.POSTGRES_PASSWORD || 'password';
+
+const dbUrl = `postgres://${dbUser}:${dbPassword}@db:5432/${dbName}`;
 
 export default defineConfig({
 	schema: './src/lib/server/db/schema.ts',
 	dialect: 'postgresql',
-	dbCredentials: { url: process.env.DATABASE_URL },
+	dbCredentials: { url: dbUrl },
 	verbose: true,
 	strict: true
 });
