@@ -1,23 +1,19 @@
 services:
   # --- SvelteKit Web Application ---
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: microxof-web:latest
     container_name: microxof-web
     restart: always
     ports:
-      - "3000:${PORT}"  # Maps port 3000 on your machine to port 3000 in the container
+      - "3000:3000"
     command: sh -c "bunx drizzle-kit push --force && bun build/index.js"
     environment:
       - NODE_ENV=production
-      - PORT=${PORT}
-      - ORIGIN=http://localhost:${PORT}
-      # The hostname is 'db' because Docker maps service names to internal IPs
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - PORT=3000
+      - ORIGIN=http://localhost:3000
     depends_on:
       db:
-        condition: service_healthy # Waits for Postgres to be fully ready, not just started
+        condition: service_started
 
   # --- PostgreSQL Database ---
   db:
@@ -25,19 +21,17 @@ services:
     container_name: postgres_db
     restart: always
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=local
     volumes:
-      - postgres_data:/var/lib/postgresql/data  # Persists your database data
-    # Note: We do NOT expose ports to the host here for security. 
-    # Only the 'web' container needs to talk to it internally.
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      interval: 10s
+      # Hardcode these health check parameters to match your user/db keys
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U root -d local"]
+      interval: 5s
       timeout: 5s
       retries: 6
 
-# --- Named Volumes ---
 volumes:
-  postgres_data: # Defines the persistent storage volume
+  postgres_data:
