@@ -1,42 +1,43 @@
-# sv
+# Setup
+1. Install Docker Desktop
+2. Create new folder
+3. Create `compose.yaml` inside the folder
+```yaml
+services:
+  web:
+    image: ghcr.io/shnflrsc/microxof:latest
+    container_name: microxof-web
+    restart: always
+    ports:
+      - "3000:3000"
+    command: sh -c "bunx drizzle-kit push --force && bun build/index.js"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - ORIGIN=http://localhost:3000
+    depends_on:
+      db:
+        condition: service_started
+  db:
+    image: postgres:17-alpine
+    container_name: postgres_db
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=local
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U root -d local"]
+      interval: 5s
+      timeout: 5s
+      retries: 6
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project
-npx sv create my-app
+volumes:
+  postgres_data:
 ```
-
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-bun x sv@0.16.1 create --template minimal --types ts --add tailwindcss="plugins:forms" drizzle="database:postgresql+postgresql:postgres.js+docker:yes" --install bun microxof
+4. Open a terminal inside the folder with the `compose.yaml` file, and run:
+```bash
+docker compose up -d
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
