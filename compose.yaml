@@ -1,7 +1,6 @@
 services:
-  # --- SvelteKit Web Application ---
   web:
-    image: microxof:latest
+    image: ghcr.io/shnflrsc/microxof:latest
     container_name: microxof-web
     restart: always
     ports:
@@ -14,8 +13,6 @@ services:
     depends_on:
       db:
         condition: service_started
-
-  # --- PostgreSQL Database ---
   db:
     image: postgres:17-alpine
     container_name: postgres_db
@@ -27,7 +24,6 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      # Hardcode these health check parameters to match your user/db keys
       test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U root -d local"]
       interval: 5s
       timeout: 5s
