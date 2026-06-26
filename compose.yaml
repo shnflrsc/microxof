@@ -1,7 +1,7 @@
 services:
   # --- SvelteKit Web Application ---
   web:
-    image: microxof-web:latest
+    image: microxof:latest
     container_name: microxof-web
     restart: always
     ports:
