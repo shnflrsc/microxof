@@ -4,7 +4,7 @@ import { json } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 
 export async function DELETE({ params, request }) {
-    const { id } = params;
+    const { id } = params as Record<string, string>;
 
     try {
         const deletedRows = await db.delete(registrations).where(eq(registrations.id, Number(id)));

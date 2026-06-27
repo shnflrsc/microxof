@@ -92,6 +92,7 @@
                     <td>{registration.yearLevel}</td>
                     <td>{registration.college}</td>
                     <td>{registration.program}</td>
+                    <td>{registration.section}</td>
                     <td>{registration.contactNumber}</td>
                     <td>{registration.address}</td>
                     <td>{registration.receiptNumber}</td>

@@ -18,12 +18,13 @@ export const actions: Actions = {
     const lastName = formData.get("last_name")?.toString() ?? "";
     let suffix: string | null = formData.get("suffix")?.toString() ?? "";
     const email = formData.get("email")?.toString() ?? "";
-    const birthdate= formData.get("birthdate")?.toString() ?? "";
+    const birthdate = formData.get("birthdate")?.toString() ?? "";
     const gender = formData.get("gender")?.toString() ?? "";
     const studentNumber = formData.get("student_number")?.toString() ?? "";
     const yearLevel = formData.get("year_level")?.toString() ?? "";
     const college = formData.get("college")?.toString() ?? "";
-    const program= formData.get("program")?.toString() ?? "";
+    const program = formData.get("program")?.toString() ?? "";
+    const section = formData.get("section")?.toString() ?? "";
     const contactNumber = formData.get("contact_number")?.toString() ?? "";
     const address = formData.get("address")?.toString() ?? "";
     const receiptNumber = formData.get("receipt_number")?.toString() ?? "";
@@ -46,6 +47,7 @@ export const actions: Actions = {
         yearLevel: yearLevel as YearLevel,
         college: college as College,
         program: program,
+        section: section,
         contactNumber: contactNumber,
         address: address,
         receiptNumber: receiptNumber,

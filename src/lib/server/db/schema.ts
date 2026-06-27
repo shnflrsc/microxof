@@ -52,6 +52,7 @@ export const registrations = pgTable("registrations", {
   yearLevel: yearLevelEnum("year_level").notNull(),
   college: collegeEnum("college").notNull(),
   program: varchar("program", { length: 255 }).notNull(),
+  section: varchar("section", { length: 255 }).notNull(),
   contactNumber: varchar("contact_number", { length: 11 }).notNull(),
   address: text("address").notNull(),
   receiptNumber: text("receipt_number").unique().notNull(),
