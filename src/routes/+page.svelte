@@ -40,7 +40,7 @@
                     <option value="female">Female</option>
                     <option value="male">Male</option>
                     <option value="non_binary">Non-binary</option>
-                    <option value="prefer_not_to_say">Prefer not to say/Other</option>
+                    <option value="other">Prefer not to say/Other</option>
                 </select>
             </li>
             
@@ -84,11 +84,11 @@
             </li>
 
             <li class="md:col-span-3">
-                <label for="contact_number">Contact Number</label>
+                <label for="contact_number">Contact Number <span class="text-red-500">*</span></label>
                 <input type="text" id="contact_number" name="contact_number" placeholder="09000000000" required>
             </li>
             <li class="md:col-span-3">
-                <label for="address">Address</label>
+                <label for="address">Address <span class="text-red-500">*</span></label>
                 <input type="text" id="address" name="address" placeholder="Block 20 Lot 21, MSC Street, Brgy. Xoft, Malolos City, Bulacan" required>
             </li>
 

@@ -13,7 +13,7 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core";
 
-export const genderEnum = pgEnum("gender", ["female", "male", "non_binary", "prefer_not_to_say"]);
+export const genderEnum = pgEnum("gender", ["female", "male", "non_binary", "other"]);
 export const yearLevelEnum = pgEnum("year_level", [
   "freshman",
   "sophomore",
