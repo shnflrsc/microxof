@@ -13,6 +13,7 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core";
 
+export const suffixEnum = pgEnum("suffix", ["jr", "sr", "i", "ii", "iii", "iv", "v"]);
 export const genderEnum = pgEnum("gender", ["female", "male", "non_binary", "other"]);
 export const yearLevelEnum = pgEnum("year_level", [
   "freshman",
@@ -43,7 +44,7 @@ export const registrations = pgTable("registrations", {
   firstName: varchar("first_name", { length: 255 }).notNull(),
   middleName: varchar("middle_name", { length: 255 }),
   lastName: varchar("last_name", { length: 255 }).notNull(),
-  suffix: varchar("suffix", { length: 10 }),
+  suffix: suffixEnum("suffix"),
   email: varchar("email", { length: 255 }).notNull(),
   birthdate: date("birthdate").notNull(),
   gender: genderEnum("gender").notNull(),
@@ -53,9 +54,11 @@ export const registrations = pgTable("registrations", {
   program: varchar("program", { length: 255 }).notNull(),
   contactNumber: varchar("contact_number", { length: 11 }).notNull(),
   address: text("address").notNull(),
+  receiptNumber: text("receipt_number").unique().notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
+export type Suffix = InferEnum<typeof suffixEnum>;
 export type Gender = InferEnum<typeof genderEnum>;
 export type YearLevel = InferEnum<typeof yearLevelEnum>;
 export type College = InferEnum<typeof collegeEnum>;

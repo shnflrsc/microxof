@@ -65,7 +65,7 @@
 
     <table class="text-xs text-left mt-8">
         <thead>
-            <tr class="*:p-2">
+            <tr class="*:p-1">
                 <th></th>
                 {#each data.columns as column}
                     <th>{column}</th>
@@ -74,7 +74,7 @@
         </thead>
         <tbody>
             {#each registrations as registration}
-                <tr class="*:p-2">
+                <tr class="*:p-1">
                     <td>
                         <button class="text-red-500 hover:text-red-600 duration-300 cursor-pointer" onclick={() => deleteRegistration(registration.id)}   >
                             delete
@@ -94,6 +94,7 @@
                     <td>{registration.program}</td>
                     <td>{registration.contactNumber}</td>
                     <td>{registration.address}</td>
+                    <td>{registration.receiptNumber}</td>
                     <td>{registration.createdAt}</td>
                 </tr>
             {/each}

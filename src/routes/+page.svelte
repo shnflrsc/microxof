@@ -11,7 +11,7 @@
 
     <form class="w-11/12 place-self-center" method="post" action="?/submit" use:enhance>
 
-        <ul class="grid grid-cols-1 md:grid-cols-6 auto-rows-auto gap-x-2 gap-y-2 *:flex *:flex-col *:gap-y-2">
+        <ul class="grid grid-cols-1 md:grid-cols-8 auto-rows-auto gap-x-2 gap-y-2 *:flex *:flex-col *:gap-y-2">
 
             <li class="md:col-span-2">
                 <label for="first_name">First Name <span class="text-red-500">*</span></label>
@@ -25,16 +25,29 @@
                 <label for="last_name">Last Name <span class="text-red-500">*</span></label>
                 <input type="text" id="last_name" name="last_name" placeholder="Dela Cruz" required>
             </li>
-
             <li class="md:col-span-2">
+                <label for="suffix">Suffix</label>
+                <select name="suffix" id="suffix">
+                    <option value="">None</option>
+                    <option value="jr">Jr.</option>
+                    <option value="sr">Sr.</option>
+                    <option value="ii">II</option>
+                    <option value="iii">III</option>
+                    <option value="iv">IV</option>
+                    <option value="v">V</option>
+                </select>
+            </li>
+
+
+            <li class="md:col-span-4">
                 <label for="email">Email <span class="text-red-500">*</span></label>
                 <input type="text" id="email" name="email" placeholder="xoftdelacruz@outlook.com" required>
             </li>
-            <li class="md:col-span-2">
+            <li class="md:col-span-4">
                 <label for="birthdate">Birthdate <span class="text-red-500">*</span></label>
                 <input type="date" id="birthdate" name="birthdate" required>
             </li>
-            <li class="md:col-span-2">
+            <li class="md:col-span-4">
                 <label for="gender">Gender <span class="text-red-500">*</span></label>
                 <select id="gender" name="gender" required>
                     <option value="female">Female</option>
@@ -44,11 +57,11 @@
                 </select>
             </li>
             
-            <li class="md:col-span-2">
+            <li class="md:col-span-4">
                 <label for="student_number">Student Number <span class="text-red-500">*</span></label>
                 <input type="text" id="student_number" name="student_number" placeholder="2026000001" required>
             </li>
-            <li class="md:col-span-2">
+            <li class="md:col-span-4">
                 <label for="year_level">Year Level <span class="text-red-500">*</span></label>
                 <select id="year_level" name="year_level" required>
                     <option value="freshman">Freshman</option>
@@ -57,7 +70,7 @@
                     <option value="senior">Senior</option>
                 </select>
             </li>
-            <li class="md:col-span-2">
+            <li class="md:col-span-4">
                 <label for="college">College <span class="text-red-500">*</span></label>
                 <select name="college" id="college" required>
                     <option value="CAFA">CAFA</option>
@@ -78,18 +91,23 @@
                 </select>
             </li>
             
-            <li class="md:col-span-6">
+            <li class="md:col-span-8">
                 <label for="program">Program <span class="text-red-500">*</span></label>
                 <input type="text" id="program" name="program" placeholder="BS Information Technology" required>
             </li>
 
-            <li class="md:col-span-3">
+            <li class="md:col-span-4">
                 <label for="contact_number">Contact Number <span class="text-red-500">*</span></label>
                 <input type="text" id="contact_number" name="contact_number" placeholder="09000000000" required>
             </li>
-            <li class="md:col-span-3">
+            <li class="md:col-span-4">
                 <label for="address">Address <span class="text-red-500">*</span></label>
                 <input type="text" id="address" name="address" placeholder="Block 20 Lot 21, MSC Street, Brgy. Xoft, Malolos City, Bulacan" required>
+            </li>
+
+            <li class="md:col-span-8">
+                <label for="receipt_number">Receipt Number <span class="text-red-500">*</span></label>
+                <input type="text" id="receipt_number" name="receipt_number" placeholder="Receipt Number" required>
             </li>
 
         </ul>
