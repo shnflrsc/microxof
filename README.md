@@ -19,7 +19,7 @@ services:
       db:
         condition: service_started
   db:
-    image: postgres:17-alpine
+    image: postgres:17.10-alpine
     container_name: postgres_db
     restart: always
     environment:
